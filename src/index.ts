@@ -15,14 +15,63 @@ function calculateSum(x: number, y = 0): number {
   return sum * 1.1
 }
 
-let employee: {
+type Employee = {
   readonly id: number
   name: string
   retire: (date: Date) => void
-} = {
+}
+let employee: Employee = {
   id: 1,
   name: "Mishkat",
   retire: (date: Date) => {
     console.log(date)
   },
 }
+
+function kgToLbs(weight: number | string): number {
+  // Narrowing
+  if (typeof weight === "number") return weight * 2.2
+  else return parseInt(weight) * 2.2
+}
+
+kgToLbs(10)
+kgToLbs("10")
+
+type Draggable = {
+  drag: () => void
+}
+type Resizable = {
+  resize: () => void
+}
+type UIWidget = Draggable & Resizable
+
+let textBox: UIWidget = {
+  drag: () => {},
+  resize: () => {},
+}
+
+type Sex = "Male" | "Female"
+
+function great(name: string | null | undefined) {
+  if (name) console.log(name.toUpperCase())
+  else console.log("Hola!")
+}
+
+type Customer = {
+  birthday?: Date
+}
+
+function getCustomer(id: number): Customer | null | undefined {
+  return id === 0 ? null : { birthday: new Date() }
+}
+
+let customer = getCustomer(1)
+// Optional property access operator
+console.log(customer?.birthday?.getFullYear())
+
+// Optional element access operator
+// customer?.[0]
+
+// Optional call
+let log: any = null
+log?.("a")
